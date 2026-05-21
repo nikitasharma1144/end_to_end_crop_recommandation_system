@@ -25,3 +25,6 @@ Thumbs.db
 
 # Optional: ignore local model files if you don't want to push them
 random_forest_model.pkl
+
+# Ignore nested workspace repository directory
+end_to_end_crop_recommandation_system/

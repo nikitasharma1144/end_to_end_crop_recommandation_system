@@ -1,0 +1,27 @@
+# Python environment
+crop/
+
+# Django and Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+env/
+venv/
+
+# SQLite database
+*.sqlite3
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Optional: ignore local model files if you don't want to push them
+random_forest_model.pkl

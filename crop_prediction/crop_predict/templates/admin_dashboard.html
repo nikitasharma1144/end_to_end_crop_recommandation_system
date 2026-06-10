@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="fa-solid fa-gauge"></i> Admin Dashboard</h3>
+    </div>
+    
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card shadow border-0 card-body d-flex justify-content-between align-items-center">
+                <div><span class="text-muted">Users</span><h3 class="fw-bold mt-2">{{ total_users }}</h3></div>
+                <i class="fa-solid fa-users text-success fa-2xl"></i>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow border-0 card-body d-flex justify-content-between align-items-center">
+                <div><span class="text-muted">Predictions</span><h3 class="fw-bold mt-2">{{ total_predictions }}</h3></div>
+                <i class="fa-solid fa-seedling text-success fa-2xl"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow border-0 card-body" style="height: 350px;">
+                <h5 class="mb-3"><i class="fa-solid fa-chart-column"></i> Top Crops</h5>
+                <canvas id="cropBar"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow border-0 card-body" style="height: 350px;">
+                <h5 class="mb-3"><i class="fa-solid fa-chart-line"></i> Predictions in 7 Days</h5>
+                <canvas id="dailyLine"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="admin-dashboard-data"
+     data-crop-labels='{{ crop_labels_json|escapejs }}'
+     data-crop-counts='{{ crop_counts_json|escapejs }}'
+     data-day-labels='{{ day_labels_json|escapejs }}'
+     data-day-counts='{{ day_counts_json|escapejs }}'
+     style="display:none;"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.min.js"></script>
+
+<script>
+    const dataEl = document.getElementById('admin-dashboard-data');
+    const cropLabels = JSON.parse(dataEl.dataset.cropLabels || '[]');
+    const cropCounts = JSON.parse(dataEl.dataset.cropCounts || '[]');
+    const dayLabels = JSON.parse(dataEl.dataset.dayLabels || '[]');
+    const dayCounts = JSON.parse(dataEl.dataset.dayCounts || '[]');
+
+    // Shared Helper function designed to initialize new canvas objects while purging old chart remnants
+    function makeOrReplaceChart(canvasId, config) {
+        const existing = Chart.getChart(canvasId);
+        if (existing) {
+            existing.destroy();
+        }
+        
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return null;
+        
+        return new Chart(canvas, config);
+    }
+
+    // Call 1: Render the Top Crops Bar Graph Representation
+    makeOrReplaceChart('cropBar', {
+        type: 'bar',
+        data: {
+            labels: cropLabels,
+            datasets: [{
+                label: 'Count',
+                data: cropCounts,
+                backgroundColor: 'rgba(40, 167, 69, 0.2)', // Styled matching translucent success-theme tinting
+                borderColor: '#28a745',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    // Call 2: Render the Timeline Performance Line Graph Representation
+    makeOrReplaceChart('dailyLine', {
+        type: 'line',
+        data: {
+            labels: dayLabels,
+            datasets: [{
+                label: 'Predictions',
+                data: dayCounts,
+                fill: true, // Configures the area underlying the plotting tracking boundary line to shade dynamically
+                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                borderColor: '#28a745',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+{% endblock %}

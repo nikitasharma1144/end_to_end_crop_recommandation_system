@@ -1,50 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crop Recommendation</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f5f7fa; color: #333; margin: 0; padding: 0; }
-        .container { max-width: 700px; margin: 40px auto; padding: 24px; background: #fff; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
-        h1 { margin-top: 0; color: #2c6d8f; }
-        label { display: block; margin: 16px 0 6px; font-weight: 600; }
-        input { width: 100%; padding: 10px 12px; border: 1px solid #ccd0d9; border-radius: 6px; box-sizing: border-box; }
-        button { margin-top: 20px; width: 100%; padding: 12px; background: #2c6d8f; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
-        button:hover { background: #23556c; }
-        .note { margin-top: 16px; color: #666; font-size: 14px; }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Crop Recommendation{% endblock %}
+
+{% block content %}
+    <div class="bg-overlay"></div>
     <div class="container">
         <h1>Crop Recommendation</h1>
         <p>Enter the soil and weather values below to get a crop prediction.</p>
         <form method="post" action="{% url 'predict' %}">
             {% csrf_token %}
             <label for="Nitrogen">Nitrogen</label>
-            <input type="number" step="any" id="Nitrogen" name="Nitrogen" required>
+            <input type="number" step="any" id="Nitrogen" name="nitrogen" value="{{ inputs.N|default:'' }}" required>
 
             <label for="Phosphorous">Phosphorous</label>
-            <input type="number" step="any" id="Phosphorous" name="Phosphorous" required>
+            <input type="number" step="any" id="Phosphorous" name="phosphorus" value="{{ inputs.P|default:'' }}" required>
 
             <label for="Potassium">Potassium</label>
-            <input type="number" step="any" id="Potassium" name="Potassium" required>
+            <input type="number" step="any" id="Potassium" name="potassium" value="{{ inputs.K|default:'' }}" required>
 
             <label for="Temperature">Temperature</label>
-            <input type="number" step="any" id="Temperature" name="Temperature" required>
+            <input type="number" step="any" id="Temperature" name="temperature" value="{{ inputs.temperature|default:'' }}" required>
 
             <label for="Humidity">Humidity</label>
-            <input type="number" step="any" id="Humidity" name="Humidity" required>
+            <input type="number" step="any" id="Humidity" name="humidity" value="{{ inputs.humidity|default:'' }}" required>
 
             <label for="Rainfall">Rainfall</label>
-            <input type="number" step="any" id="Rainfall" name="Rainfall" required>
+            <input type="number" step="any" id="Rainfall" name="rainfall" value="{{ inputs.rainfall|default:'' }}" required>
 
             <label for="Ph">pH</label>
-            <input type="number" step="any" id="Ph" name="Ph" required>
+            <input type="number" step="any" id="Ph" name="ph" value="{{ inputs.ph|default:'' }}" required>
 
             <button type="submit">Predict Crop</button>
         </form>
+
+        {% if result %}
+            <div class="result-box">
+                <h2>Recommended Crop</h2>
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
         <p class="note">Note: make sure your Django app has a URL route for <code>/predict/</code> and the prediction model is loaded.</p>
     </div>
-</body>
-</html>
+{% endblock %}

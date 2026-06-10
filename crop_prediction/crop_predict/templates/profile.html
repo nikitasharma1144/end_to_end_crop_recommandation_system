@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h3 class="mb-4 text-success">
+                        <i class="fa-solid fa-user-pen"></i> Edit Profile
+                    </h3>
+                    
+                    <form method="POST" id="profileForm">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Full Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                                <input type="text" name="name" class="form-control" value="{{ full_name }}">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label font-weight-bold">Contact Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                                <input type="text" name="phone" class="form-control" value="{{ profile.phone }}">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label text-muted d-block">Registered Email (Cannot be changed)</label>
+                            <span class="text-secondary pl-2">
+                                <i class="fa-regular fa-envelope"></i> {{ request.user.username }}
+                            </span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="fa-solid fa-floppy-disk"></i> Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

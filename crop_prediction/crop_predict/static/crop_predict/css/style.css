@@ -1,0 +1,104 @@
+/* Global styles and background */
+html, body {
+    height: 100%;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #132f38;
+    background: linear-gradient(180deg, rgba(19,47,56,0.72), rgba(19,47,56,0.72)),
+        url('https://image.slidesdocs.com/responsive-images/background/captivating-design-theme-for-autumn-season-3d-illustration-of-a-wheat-crop-farm-powerpoint-background_b2fd5ab3a5__960_540.jpg') center/cover no-repeat fixed;
+    color: #fff;
+}
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.12);
+    pointer-events: none;
+}
+.app-navbar {
+    background-color: rgba(4, 33, 46, 0.98) !important;
+    background-image: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.app-navbar .navbar-brand,
+.app-navbar .navbar-brand i,
+.app-navbar .navbar-nav .nav-link,
+.app-navbar .navbar-nav .nav-link i,
+.app-navbar .navbar-toggler-icon,
+.app-navbar .navbar-toggler-icon i {
+    color: #fff !important;
+}
+.app-navbar .navbar-toggler {
+    border-color: rgba(255,255,255,0.35);
+    background-color: rgba(255,255,255,0.08) !important;
+}
+.app-navbar .navbar-toggler-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    color: #fff !important;
+}
+.app-navbar .navbar-toggler-icon i {
+    color: #fff !important;
+    font-size: 1.2rem;
+}
+.app-navbar .navbar-collapse {
+    background-color: rgba(4, 33, 46, 0.98);
+}
+.app-navbar .navbar-nav .nav-link {
+    opacity: 0.95;
+    color: #fff !important;
+}
+.app-navbar .navbar-nav .nav-link:hover,
+.app-navbar .navbar-nav .nav-link.active {
+    opacity: 1;
+}
+.app-navbar .navbar-nav .nav-link:hover,
+.app-navbar .navbar-nav .nav-link.active {
+    opacity: 1;
+}
+
+/* Card / container */
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 24px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    color: #fff;
+}
+
+h1 { margin-top: 0; color: #fff; }
+.text-success { color: #fff !important; }
+h2 { color: #fff !important; text-shadow: 0 1px 4px rgba(0,0,0,0.35); }
+label { display: block; margin: 16px 0 6px; font-weight: 600; }
+input { width: 100%; padding: 10px 12px; border: 1px solid #ccd0d9; border-radius: 6px; box-sizing: border-box; }
+button { margin-top: 20px; width: 100%; padding: 12px; background: #2c6d8f; color: #fff; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+button:hover { background: #23556c; }
+.navbar .navbar-brand, .navbar .navbar-brand i,
+.navbar .navbar-nav .nav-link,
+.navbar .navbar-nav .nav-link i {
+    color: #fff !important;
+}
+.navbar .navbar-nav .nav-link {
+    opacity: 0.95;
+}
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    opacity: 1;
+}
+.nav-link i { margin-right: 8px; }
+.note { margin-top: 16px; color: #666; font-size: 14px; }
+
+/* Result page specifics */
+.result-box { margin-top: 24px; padding: 18px; border: 1px solid #c9d6e3; border-radius: 10px; background: #f8fbff; }
+.result-label { font-size: 14px; color: #5f6d7a; text-transform: uppercase; letter-spacing: 0.1em; }
+.result-value { margin-top: 12px; font-size: 28px; font-weight: 700; color: #1a3f58; }
+a { display: inline-block; margin-top: 26px; color: #2a5d78; text-decoration: none; font-weight: 600; }
+a:hover { text-decoration: underline; }

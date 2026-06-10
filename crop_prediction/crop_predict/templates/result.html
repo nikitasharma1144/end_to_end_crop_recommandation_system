@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction Result</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #eef2f7; color: #222; margin: 0; padding: 0; }
-        .container { max-width: 600px; margin: 48px auto; padding: 28px; background: #fff; border-radius: 14px; box-shadow: 0 12px 28px rgba(0,0,0,0.09); }
-        h1 { margin-top: 0; color: #2a5d78; }
-        .result-box { margin-top: 24px; padding: 18px; border: 1px solid #c9d6e3; border-radius: 10px; background: #f8fbff; }
-        .result-label { font-size: 14px; color: #5f6d7a; text-transform: uppercase; letter-spacing: 0.1em; }
-        .result-value { margin-top: 12px; font-size: 28px; font-weight: 700; color: #1a3f58; }
-        a { display: inline-block; margin-top: 26px; color: #2a5d78; text-decoration: none; font-weight: 600; }
-        a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block content %}
+    <div class="bg-overlay"></div>
     <div class="container">
         <h1>Crop Prediction Result</h1>
         <div class="result-box">
             <div class="result-label">Recommended crop</div>
             <div class="result-value">{{ result }}</div>
         </div>
-        <a href="{% url 'home' %}">← Back to prediction form</a>
+        <a href="{% url 'form' %}">← Back to prediction form</a>
     </div>
-</body>
-</html>
+{% endblock %}

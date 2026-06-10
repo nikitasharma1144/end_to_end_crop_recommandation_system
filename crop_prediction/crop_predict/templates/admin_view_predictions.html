@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Admin-View Predictions{% endblock %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="mb-3"><i class="fa-solid fa-seedling"></i> Prediction History Logs</h3>
+    <hr class="mb-4">
+
+    <form method="get" class="card shadow-sm border-0 card-body bg-light mb-4">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-4">
+                <label class="form-label">Crop Label</label>
+                <select name="crop" class="form-select">
+                    <option value="all">All Predictions</option>
+                    {% for c in crops %}
+                        <option value="{{ c }}" {% if c == current_crop %}selected{% endif %}>{{ c|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-md-3">
+                <label class="form-label">Start Date</label>
+                <input type="date" name="start" value="{{ start_date }}" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">End Date</label>
+                <input type="date" name="end" value="{{ end_date }}" class="form-control">
+            </div>
+            
+            <div class="col-md-2 d-flex gap-2">
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="fa-solid fa-filter"></i> Apply
+                </button>
+                <a href="{% url 'admin_view_predictions' %}" class="btn btn-outline-secondary w-100">
+                    <i class="fa-solid fa-rotate-left"></i> Clear
+                </a>
+            </div>
+        </div>
+    </form>
+
+    <div class="card shadow border-0 card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-success">
+                    <tr>
+                        <th>#</th>
+                        <th>Date & Time</th>
+                        <th>User Account</th>
+                        <th>Predicted Recommendation Output</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in predictions %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ p.created_at }}</td>
+                        <td>{{ p.user.username }}</td>
+                        <td><span class="badge bg-primary fs-6">{{ p.predicted_label|title }}</span></td>
+                        <td class="text-center">
+                            <a href="{% url 'admin_delete_prediction' p.id %}" 
+                               class="btn btn-sm btn-outline-danger"
+                               onclick="return confirm('Delete this record? This action cannot be undone.');">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">No matching recommendation instances found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
